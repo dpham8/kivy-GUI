@@ -1,0 +1,426 @@
+# Author: Dat Pham
+# Date Modifed: 10/17/21
+#
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+<Button1@Button>:
+    font_size: 15
+    #bold: True
+	size_hint: 0.4, 0.1
+	background_normal: ''
+	#background_color: ((30/255),(144/255),1,1)
+	background_color: ((253/255),(106/255),(2/255),1)
+	#color: (0,1,0,1)
+	
+<Button2@Button>:
+    font_size: 12
+	background_normal: ''
+	background_color: (1,1,1,1)
+	color: (0,0,0,1)
+	size_hint_y: None
+	height: '30dp'
+	
+<Button3@Button>:
+    font_size: 15
+	size_hint: 0.15, 0.08
+	color: (0,0,0,1)
+	background_normal: ''
+	#background_color: ((30/255),(144/255),1,1)
+	background_color: ((253/255),(106/255),(2/255),1)
+	#color: (0,1,0,1)
+
+WindowManager:
+	transition: NoTransition()
+	Menu:
+	Option1:
+	Option1ADHD:
+	Option1CS:
+	Option1HC:
+	Option1F:
+	Option2:
+	Option2ADHD:
+	Option2CS:
+	Option2HC:
+	Option2F:
+	Option3:
+	Option4:
+	Option5:
+	Option6:
+	
+<Menu>:
+	m: m.__self__
+	btn: btn.__self__
+	dropdown: dropdown.__self__
+	dropdown2: dropdown2.__self__
+	dropdown3: dropdown3.__self__
+	name: 'menu'
+	id: m
+	canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'back2.JPG'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label: 
+			font_size: 60
+			font_name: 'Forte'
+			text: 'Happy Translator'
+			color: (1,1,0,1)
+			#bold: True
+			pos_hint: {"y": 0.25}
+			
+		Button1:
+			id: btn
+			font_size: 20
+			text:'Voice'
+			on_parent: dropdown.dismiss()
+			on_release: dropdown.open(self)
+			pos_hint: {"x":0.3, "y":0.5}
+
+		DropDown:
+			id: dropdown
+			on_select: btn.text = '{}'.format(args[1])
+			
+			Button2:
+				font_size: 16
+				text: 'Speech to Text'
+				on_release: 
+					app.root.current = 'Speech to Text'
+					dropdown.dismiss()
+			
+			Button2:
+				font_size: 16
+				text: 'Speech to Sign Language'
+				background_color: ((242/255),(242/255),(242/255),1)
+				on_release: 
+					app.root.current = 'Speech to Sign Language'
+					dropdown.dismiss()
+
+		Button1:
+			id: btn
+			text: 'Text'
+			font_size: 20
+			on_parent: dropdown2.dismiss()
+			on_release: dropdown2.open(self)
+			pos_hint: {"x": 0.3, "y": 0.37}
+			
+		DropDown:
+			id: dropdown2
+			on_select: btn.text = '{}'.format(args[1])
+			
+			Button2:
+				font_size: 16
+				text: 'Text to Speech'
+				on_release: 
+					app.root.current = 'Text to Speech'
+					dropdown2.dismiss()
+			
+			Button2:
+				font_size: 16
+				text: 'Text to Sign Language'
+				background_color: ((242/255),(242/255),(242/255),1)
+				on_release: 
+					app.root.current = 'Text to Sign Language'
+					dropdown2.dismiss()
+			
+		Button1:
+			id: btn
+			text: 'Sign Language'	
+			font_size: 20
+			on_parent: dropdown3.dismiss()
+			on_release: dropdown3.open(self)
+			pos_hint: {"x":0.3, "y":0.24}
+		
+		DropDown:
+			id: dropdown3
+			on_select: btn.text = '{}'.format(args[1])
+			
+			Button2:
+				font_size: 16
+				text: 'Sign Language to Speech'
+				on_release: 
+					app.root.current = 'Sign Language to Speech'
+					dropdown3.dismiss()
+			
+			Button2:
+				font_size: 16
+				text: 'Sign Language to Text'
+				background_color: ((242/255),(242/255),(242/255),1)
+				on_release: 
+					app.root.current = 'Sign Language to Text'
+					dropdown3.dismiss()
+
+<Option1>:
+	id: stt_output
+	name: 'Speech to Text'
+	speech_output: speech_output
+	
+	FloatLayout:
+		size: root.width, root.height	
+		
+		Label:
+			id: module
+			font_size: 20
+			#center_y: 1.0
+			
+		Spinner:
+			id: library_id
+			text: "Choose library"
+			size_hint: 1, 0.08
+			pos_hint: {"top":1}
+			values: ["ADHD/Kids", "Computer Science", "Healthcare", "Finance"]
+			on_text: 			
+				#app.root.current = self.text
+				app.root.current = 'Speech to Text'
+				root.spinner_clicked(library_id.text)
+	
+		Button3:
+			text: "Back"
+			color: (1,1,1,1)
+			on_release: app.root.current = 'menu'
+			
+		Button3:
+			text: "Start"
+			pos_hint: {"x":0.35, "y":0.1}
+			background_color: (0,1,0,1)
+			on_press: root.start()
+		Button3:
+			text: "Stop"
+			pos_hint: {"x":0.51, "y":0.1}
+			background_color: (1,0,0,1)
+			on_press: root.stop()
+		RstDocument:
+			id: speech_output
+            text: speech_output.text
+			pos_hint: {"x":0.0, "y":0.25}
+			size_hint: 1.0, 0.67
+			show_errors: True
+		
+<Option1ADHD>:
+	name: 'ADHD/Kids'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "asdddddasd"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+		
+<Option1CS>:
+	name: 'Computer Science'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "asyayyd"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+
+<Option1HC>:
+	name: 'Healthcare'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "aere"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+
+<Option1F>:
+	name: 'Finance'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "add"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+		
+<Option2>:
+	name: 'Speech to Sign Language'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Spinner:
+			id: library_id
+			text: "Choose library"
+			size_hint: 1, 0.08
+			pos_hint: {"top":1}
+			values: ["ADHD/Kids", "Computer Science", "Healthcare", "Finance"]
+			on_text: 
+				app.root.current = self.text
+				root.spinner_clicked(library_id.text)
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+
+<Option2ADHD>:
+	name: 'ADHD/Kids'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "asdddddasd"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+		
+<Option2CS>:
+	name: 'Computer Science'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "asyayyd"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+
+<Option2HC>:
+	name: 'Healthcare'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "aere"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+
+<Option2F>:
+	name: 'Finance'
+	FloatLayout:
+		size: root.width, root.height
+		
+		Label:
+			text: "add"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+					
+<Option3>:
+	id: tts_output
+	name: 'Text to Speech'
+	text_input: text_input
+	
+	BoxLayout:
+        orientation: 'vertical'
+		
+		#FloatLayout:
+		#	size: root.width, root.height
+		
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            
+			Button:
+				text: "Back"
+				size_hint_x: 0.15
+				background_normal: ''
+				background_color: ((253/255),(106/255),(2/255),1)
+				on_release: app.root.current = 'menu'
+				
+			Button:
+				text: 'Choose file'
+				#background_normal: ''
+				#background_color: ((0/255),(204/255),(102/255),1)
+				on_release: root.show_load()
+				            	
+			#Button:
+             #   text: 'Save'
+              #  on_release: root.show_save()
+
+        BoxLayout:
+            #TextInput:
+             #   id: text_input
+              #  text: ''
+
+            RstDocument:
+				id: text_input
+                text: text_input.text
+                show_errors: True
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos 
+        orientation: "vertical"
+        FileChooserListView:
+			id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+					
+            Button:
+                text: "Upload"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+<Option4>:
+	name: 'Text to Sign Language'
+	BoxLayout:
+		orientation: "vertical"
+		size: root.width, root.height
+		
+		Label:
+			text: "asdasd"
+			font_size: 50
+			
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+			
+<Option5>:
+	name: 'Sign Language to Speech'
+	BoxLayout:
+		orientation: "vertical"
+		size: root.width, root.height
+			
+		Label:
+			text: "asdasd"
+			font_size: 50
+		
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+			
+<Option6>:
+	name: 'Sign Language to Text'
+	BoxLayout:
+		orientation: "vertical"
+		size: root.width, root.height
+		
+		Label:
+			text: "asdasd"
+			font_size: 50
+			
+		Button1:
+			text: "Back"
+			on_release: app.root.current = 'menu'
+	
